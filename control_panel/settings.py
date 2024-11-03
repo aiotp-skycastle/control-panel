@@ -31,6 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'buzzer.apps.BuzzerConfig',
+    'chair.apps.ChairConfig',
+    'desk.apps.DeskConfig',
+    'room.apps.RoomConfig',
+    'studytime.apps.StudytimeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
