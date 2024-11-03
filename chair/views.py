@@ -3,9 +3,12 @@ import json
 from django.views import View
 from django.http import JsonResponse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from .models import Chair
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ChairView(View):
     def get(self, request, *args, **kwargs):
         latest_chair = Chair.objects.order_by('-datetime').first()
