@@ -23,7 +23,7 @@ class ChairView(View):
             data = json.loads(request.body)
             status = data.get('status')
             
-            if status not in ['on', 'yes']:
+            if status not in ['on', 'off']:
                 return JsonResponse({"success": False, "error": "Invalid status"}, status=400)
             
             chair = Chair(datetime=timezone.now(), status=status)
