@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Dashboard</title>
     <script>
+        const csrftoken = '{{ csrf_token }}';
+
         function fetchCurrentAngle() {
             fetch(`/room/servo`, { method: 'GET' })
                 .then(response => response.json())
@@ -24,8 +26,9 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
                 },
-                body: JSON.stringify({ angle_change: change })
+                body: JSON.stringify({ angle: change })
             })
             .then(response => response.json())
             .then(data => {
