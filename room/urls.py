@@ -7,4 +7,5 @@ urlpatterns = [
     path("illuminance", views.IlluminanceView.as_view(), name="illuminance"),
     path("temperature", views.TemperatureView.as_view(), name="temperature"),
     path("pressure", views.PressureView.as_view(), name="pressure"),
+    path("servo", views.ServoView.as_view(), name="servo"),
 ]
