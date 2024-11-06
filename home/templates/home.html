@@ -12,8 +12,12 @@
         fetch(`/room/servo`, { method: "GET" })
           .then((response) => response.json())
           .then((data) => {
-            currentAngle = data.angle;
-            updateDisplayedAngle();
+            if (data.angle) {
+              currentAngle = data.angle;
+              updateDisplayedAngle();
+            } else {
+                sendAngleToServer(90);
+            }
           })
           .catch((error) => {
             console.error("Error:", error);
