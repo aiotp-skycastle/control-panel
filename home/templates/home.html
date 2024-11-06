@@ -13,11 +13,11 @@
                 .then(response => response.json())
                 .then(data => {
                     currentAngle = data.angle;
-                    document.getElementById("current-angle").innerText = `Current Angle: ${currentAngle}°`;
+                    updateDisplayedAngle();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-            });
+                });
         }
 
         function adjustAngle(change) {
@@ -25,29 +25,53 @@
             if (currentAngle < 0) currentAngle = 0;
             if (currentAngle > 180) currentAngle = 180;
 
+            sendAngleToServer(currentAngle);
+        }
+
+        function setAbsoluteAngle() {
+            const inputAngle = parseInt(document.getElementById("angle-input").value, 10);
+            if (isNaN(inputAngle) || inputAngle < 0 || inputAngle > 180) {
+                alert("Please enter a valid angle between 0 and 180.");
+                return;
+            }
+            currentAngle = inputAngle;
+            sendAngleToServer(currentAngle);
+        }
+
+        function sendAngleToServer(angle) {
             fetch(`/room/servo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken
                 },
-                body: JSON.stringify({ angle: currentAngle })
+                body: JSON.stringify({ angle: angle })
             })
             .then(response => response.json())
             .then(data => {
                 currentAngle = data.angle;
-                document.getElementById("current-angle").innerText = `Current Angle: ${currentAngle}°`;
+                updateDisplayedAngle();
             })
             .catch(error => console.error('Error:', error));
         }
 
-        window.onload = fetchCurrentAngle;
-    </script>
+        function updateDisplayedAngle() {
+            document.getElementById("angle-input").value = currentAngle;
+        }
+
+        function handleEnterKey(event) {
+            if (event.key === "Enter") {
+                setAbsoluteAngle();
+            }
+        }
+
+        window.onload = fetchCurrentAngle;    </script>
 </head>
 <body>
-    <h1>Servo Motor Control</h1>
-    <p id="current-angle">Current Angle: 0°</p>
-    <button onclick="adjustAngle(-10)">Decrease by 10°</button>
-    <button onclick="adjustAngle(10)">Increase by 10°</button>
-</body>
+    <h1>Camera Control</h1>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button onclick="adjustAngle(-10)">Decrease by 10°</button>
+        <input type="number" id="angle-input" placeholder="Enter angle (0-180)" min="0" max="180" onkeydown="handleEnterKey(event)">
+        <button onclick="adjustAngle(10)">Increase by 10°</button>
+    </div></body>
 </html>
