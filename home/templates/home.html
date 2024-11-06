@@ -6,27 +6,38 @@
     <title>Control Dashboard</title>
     <script>
         const csrftoken = '{{ csrf_token }}';
+        let currentAngle = 0;
 
         function fetchCurrentAngle() {
             fetch(`/room/servo`, { method: 'GET' })
                 .then(response => response.json())
-                .then(data => document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`)
+                .then(data => {
+                    currentAngle = data.angle;
+                    document.getElementById("current-angle").innerText = `Current Angle: ${currentAngle}°`;
+                })
                 .catch(error => {
                     console.error('Error:', error);
             });
         }
 
         function adjustAngle(change) {
+            currentAngle += change;
+            if (currentAngle < 0) currentAngle = 0;
+            if (currentAngle > 180) currentAngle = 180;
+
             fetch(`/room/servo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken
                 },
-                body: JSON.stringify({ angle: change })
+                body: JSON.stringify({ angle: currentAngle })
             })
             .then(response => response.json())
-            .then(data => document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`)
+            .then(data => {
+                currentAngle = data.angle;
+                document.getElementById("current-angle").innerText = `Current Angle: ${currentAngle}°`;
+            })
             .catch(error => console.error('Error:', error));
         }
 
