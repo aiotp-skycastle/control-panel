@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Dashboard</title>
+    <script>
+        function fetchCurrentAngle() {
+            fetch(`/room/servo`, { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`;
+                    } else {
+                        document.getElementById("current-angle").innerText = data.error;
+                        adjustAngle(90);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function adjustAngle(change) {
+            fetch(`/room/servo`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ angle_change: change })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`;
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // 페이지 로드 시 현재 각도를 가져오는 함수 호출
+        window.onload = fetchCurrentAngle;    </script>
 </head>
 <body>
-    <h1>Welcome to the Control Dashboard</h1>
-    <p>Hi</p>
+    <h1>Servo Motor Control</h1>
+    <p id="current-angle">Current Angle: 0°</p>
+    <button onclick="adjustAngle(-10)">Decrease by 10°</button>
+    <button onclick="adjustAngle(10)">Increase by 10°</button>
 </body>
 </html>
