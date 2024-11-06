@@ -10,15 +10,10 @@
         function fetchCurrentAngle() {
             fetch(`/room/servo`, { method: 'GET' })
                 .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`;
-                    } else {
-                        document.getElementById("current-angle").innerText = data.error;
-                        adjustAngle(90);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                .then(data => document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`)
+                .catch(error => {
+                    console.error('Error:', error);
+            });
         }
 
         function adjustAngle(change) {
@@ -31,18 +26,12 @@
                 body: JSON.stringify({ angle: change })
             })
             .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`;
-                } else {
-                    alert(data.error);
-                }
-            })
+            .then(data => document.getElementById("current-angle").innerText = `Current Angle: ${data.angle}°`)
             .catch(error => console.error('Error:', error));
         }
 
-        // 페이지 로드 시 현재 각도를 가져오는 함수 호출
-        window.onload = fetchCurrentAngle;    </script>
+        window.onload = fetchCurrentAngle;
+    </script>
 </head>
 <body>
     <h1>Servo Motor Control</h1>
