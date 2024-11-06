@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'desk.apps.DeskConfig',
     'room.apps.RoomConfig',
     'studytime.apps.StudytimeConfig',
+    'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
