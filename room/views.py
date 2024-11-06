@@ -110,7 +110,6 @@ class ServoView(View):
         if angle_value is not None:
             try:
                 angle_value = int(angle_value)
-                print(angle_value)
                 if 0 <= angle_value <= 180:
                     new_entry = Servo.objects.create(datetime=timezone.now(), angle=angle_value)
                     data = {
