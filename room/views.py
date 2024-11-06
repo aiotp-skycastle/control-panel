@@ -105,12 +105,14 @@ class ServoView(View):
             return JsonResponse({'error': 'No records found.'}, status=404)
 
     def post(self, request):
-        angle_value = request.POST.get('angle')
+        data = json.loads(request.body)
+        angle_value = data.get('angle')
         if angle_value is not None:
             try:
                 angle_value = int(angle_value)
+                print(angle_value)
                 if 0 <= angle_value <= 180:
-                    new_entry = Servo.objects.create(angle=angle_value)
+                    new_entry = Servo.objects.create(datetime=timezone.now(), angle=angle_value)
                     data = {
                         'angle': new_entry.angle,
                         'datetime': new_entry.datetime
