@@ -1,7 +1,7 @@
 # 진행 상황
 - 10주차
 	- 라즈베리파이간 통신 규약 문서 정의하기
-		<img width="1171" alt="Screen Shot 2024-11-06 at 4 43 13 PM" src="https://github.com/user-attachments/assets/cedbce72-d837-48ba-b199-48cbd992d308">
+		<img width="700" alt="Screen Shot 2024-11-06 at 4 43 13 PM" src="https://github.com/user-attachments/assets/cedbce72-d837-48ba-b199-48cbd992d308">
 
 	- 백엔드 구현 1 (의자상태, 호출상태, 조도, 온도, 기압)
 
