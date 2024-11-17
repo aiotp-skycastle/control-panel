@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from stream import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('room/', include('room.urls')),
     path('studytime/', include('studytime.urls')),
     path('', include('home.urls')),
+    path('stream/<str:filename>', views.stream, name='stream'),
 ]
