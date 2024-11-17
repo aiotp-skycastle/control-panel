@@ -16,7 +16,7 @@
               currentAngle = data.angle;
               updateDisplayedAngle();
             } else {
-                sendAngleToServer(90);
+              sendAngleToServer(90);
             }
           })
           .catch((error) => {
@@ -74,8 +74,12 @@
 
       window.onload = fetchCurrentAngle;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   </head>
   <body>
+    <h1>Live Stream from Raspberry Pi A</h1>
+    <video id="video" controls autoplay></video>
+
     <h1>Camera Control</h1>
     <div style="display: flex; align-items: center; gap: 10px">
       <button onclick="adjustAngle(-10)">Decrease by 10°</button>
@@ -89,5 +93,21 @@
       />
       <button onclick="adjustAngle(10)">Increase by 10°</button>
     </div>
+
+    <script>
+      if (Hls.isSupported()) {
+        var video = document.getElementById("video");
+        var hls = new Hls();
+        hls.loadSource("https://skycastle.cho0h5.org/stream/index.m3u8");
+        hls.attachMedia(video);
+        video.muted = true;
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+        hls.on(Hls.Events.ERROR, function (event, data) {
+          console.log("Error occurred: ", data);
+        });
+      }
+    </script>
   </body>
 </html>
