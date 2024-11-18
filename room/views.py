@@ -260,7 +260,7 @@ class ServoView(APIView):
             200: {
                 "type": "object",
                 "properties": {
-                    "angle": {"type": "integer", "example": 90},
+                    "status": {"type": "integer", "example": 90},
                     "datetime": {"type": "string", "format": "date-time"}
                 }
             },
@@ -276,7 +276,7 @@ class ServoView(APIView):
         latest_record = Servo.objects.order_by('-datetime').first()
         if latest_record:
             data = {
-                'angle': latest_record.angle,
+                'status': latest_record.angle,
                 'datetime': latest_record.datetime
             }
             return JsonResponse(data)
@@ -304,7 +304,7 @@ class ServoView(APIView):
             200: {
                 "type": "object",
                 "properties": {
-                    "angle": {"type": "integer", "minimum": 0, "maximum": 180, "example": 90},
+                    "status": {"type": "integer", "minimum": 0, "maximum": 180, "example": 90},
                     "datetime": {"type": "string", "format": "date-time"}
                 }
             },
@@ -329,7 +329,7 @@ class ServoView(APIView):
                 if 0 <= angle_value <= 180:
                     new_entry = Servo.objects.create(datetime=timezone.now(), angle=angle_value)
                     data = {
-                        'angle': new_entry.angle,
+                        'status': new_entry.angle,
                         'datetime': new_entry.datetime
                     }
                     return JsonResponse(data)
