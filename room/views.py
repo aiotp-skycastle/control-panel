@@ -109,7 +109,10 @@ class PressureView(APIView):
         
         return JsonResponse({"success": False, "error": "Status value is required"}, status=400)
 
-class ServoView(View):
+class ServoView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest servo angle status",
+    )
     def get(self, request):
         latest_record = Servo.objects.order_by('-datetime').first()
         if latest_record:
@@ -121,6 +124,9 @@ class ServoView(View):
         else:
             return JsonResponse({'error': 'No records found.'}, status=404)
 
+    @extend_schema(
+        summary="Create a new servo angle status",
+    )
     def post(self, request):
         data = json.loads(request.body)
         angle_value = data.get('angle')
