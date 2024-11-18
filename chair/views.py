@@ -1,35 +1,75 @@
-import json
-
-from django.views import View
-from django.http import JsonResponse
-from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 from .models import Chair
+from django.utils import timezone
 
-@method_decorator(csrf_exempt, name='dispatch')
-class ChairView(View):
+
+class ChairView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest chair status",
+        responses={
+            200: {
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean"},
+                    "status": {"type": "string", "example": "on"},
+                    "datetime": {"type": "string", "format": "date-time"}
+                },
+            },
+            404: {
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean", "example": False},
+                    "error": {"type": "string", "example": "No status found"}
+                },
+            }
+        },
+    )
     def get(self, request, *args, **kwargs):
         latest_chair = Chair.objects.order_by('-datetime').first()
-        
-        if latest_chair:
-            return JsonResponse({"success": True, "status": latest_chair.status, "datetime": latest_chair.datetime.strftime('%Y-%m-%d %H:%M:%S')})
-        else:
-            return JsonResponse({"success": False, "error": "No status found"}, status=404)
 
+        if latest_chair:
+            return Response({
+                "success": True,
+                "status": latest_chair.status,
+                "datetime": latest_chair.datetime.strftime('%Y-%m-%d %H:%M:%S')
+            })
+        else:
+            return Response({
+                "success": False,
+                "error": "No status found"
+            }, status=404)
+
+    @extend_schema(
+        summary="Create a new chair status",
+        responses={
+            200: {
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean"},
+                    "status": {"type": "string", "example": True}
+                },
+            },
+            400: {
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean", "example": False},
+                    "error": {"type": "string", "example": "Invalid status"}
+                },
+            }
+        },
+    )
     def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body)
-            status = data.get('status')
-            
-            if status not in ['on', 'off']:
-                return JsonResponse({"success": False, "error": "Invalid status"}, status=400)
-            
-            chair = Chair(datetime=timezone.now(), status=status)
-            chair.save()
-            
-            return JsonResponse({"success": True, "status": status})
-        
-        except json.JSONDecodeError:
-            return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+        data = request.data
+        status = data.get('status')
+
+        if status not in ['on', 'off']:
+            raise ValidationError({"error": "Invalid status"})
+
+        chair = Chair(datetime=timezone.now(), status=status)
+        chair.save()
+
+        return Response({"success": True, "status": status})
