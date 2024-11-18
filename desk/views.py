@@ -1,13 +1,14 @@
 from django.http import JsonResponse
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.views import View
 from django.utils import timezone
+from rest_framework.views import APIView
+from drf_spectacular.utils import extend_schema
 
 from .models import Desk
 
-@method_decorator(csrf_exempt, name='dispatch')
-class CallView(View):
+class CallView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest call status",
+    )
     def get(self, request, *args, **kwargs):
         latest_desk = Desk.objects.order_by('-datetime').first()
         
@@ -19,6 +20,9 @@ class CallView(View):
         else:
             return JsonResponse({"success": False, "error": "No entries found"}, status=404)
 
+    @extend_schema(
+        summary="Call the manager",
+    )
     def post(self, request, *args, **kwargs):
         desk = Desk(datetime=timezone.now())
         desk.save()
