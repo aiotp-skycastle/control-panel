@@ -5,11 +5,15 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from rest_framework.views import APIView
+from drf_spectacular.utils import extend_schema
 
 from .models import Illuminance, Temperature, Pressure, Servo
 
-@method_decorator(csrf_exempt, name='dispatch')
-class IlluminanceView(View):
+class IlluminanceView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest illuminance status",
+    )
     def get(self, request, *args, **kwargs):
         recent_illuminance = Illuminance.objects.order_by('-datetime').first()
         
@@ -22,6 +26,9 @@ class IlluminanceView(View):
         else:
             return JsonResponse({"success": False, "error": "No data available"}, status=404)
 
+    @extend_schema(
+        summary="Create a new illuminance status",
+    )
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         status_value = data.get('status')
@@ -36,8 +43,10 @@ class IlluminanceView(View):
         
         return JsonResponse({"success": False, "error": "Status value is required"}, status=400)
 
-@method_decorator(csrf_exempt, name='dispatch')
-class TemperatureView(View):
+class TemperatureView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest temperature status",
+    )
     def get(self, request, *args, **kwargs):
         recent_temperature = Temperature.objects.order_by('-datetime').first()
         
@@ -50,6 +59,9 @@ class TemperatureView(View):
         else:
             return JsonResponse({"success": False, "error": "No data available"}, status=404)
 
+    @extend_schema(
+        summary="Create a new temperature status",
+    )
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         status_value = data.get('status')
@@ -64,8 +76,10 @@ class TemperatureView(View):
         
         return JsonResponse({"success": False, "error": "Status value is required"}, status=400)
 
-@method_decorator(csrf_exempt, name='dispatch')
-class PressureView(View):
+class PressureView(APIView):
+    @extend_schema(
+        summary="Retrieve the latest pressure status",
+    )
     def get(self, request, *args, **kwargs):
         recent_pressure = Pressure.objects.order_by('-datetime').first()
         
@@ -78,6 +92,9 @@ class PressureView(View):
         else:
             return JsonResponse({"success": False, "error": "No data available"}, status=404)
 
+    @extend_schema(
+        summary="Create a new pressure status",
+    )
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         status_value = data.get('status')
