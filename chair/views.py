@@ -45,6 +45,19 @@ class ChairView(APIView):
 
     @extend_schema(
         summary="Create a new chair status",
+        request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'status': {
+                    'type': 'string',
+                    'enum': ['on', 'off'],
+                    'description': 'Chair status to set'
+                }
+            },
+            'required': ['status']
+        }
+        },
         responses={
             200: {
                 "type": "object",
