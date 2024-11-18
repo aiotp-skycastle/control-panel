@@ -24,8 +24,8 @@
       <button onclick="adjustAngle(10)">Increase by 10°</button>
     </div>
 
+    // for controlling camera
     <script>
-      // for controlling camera
       const csrftoken = "{{ csrf_token }}";
       let currentAngle = 0;
 
@@ -95,8 +95,8 @@
 
       window.onload = fetchCurrentAngle;
     </script>
+    // for hls streaming
     <script>
-      // for hls streaming
       if (Hls.isSupported()) {
         var video = document.getElementById("video");
         var hls = new Hls();
