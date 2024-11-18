@@ -4,7 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Control Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </head>
+  <body>
+    <h1>Live Stream from Raspberry Pi A</h1>
+    <video id="video" controls autoplay></video>
+
+    <h1>Camera Control</h1>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <button onclick="adjustAngle(-10)">Decrease by 10°</button>
+      <input
+        type="number"
+        id="angle-input"
+        placeholder="Enter angle (0-180)"
+        min="0"
+        max="180"
+        onkeydown="handleEnterKey(event)"
+      />
+      <button onclick="adjustAngle(10)">Increase by 10°</button>
+    </div>
+
     <script>
+      // for controlling camera
       const csrftoken = "{{ csrf_token }}";
       let currentAngle = 0;
 
@@ -74,27 +95,8 @@
 
       window.onload = fetchCurrentAngle;
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  </head>
-  <body>
-    <h1>Live Stream from Raspberry Pi A</h1>
-    <video id="video" controls autoplay></video>
-
-    <h1>Camera Control</h1>
-    <div style="display: flex; align-items: center; gap: 10px">
-      <button onclick="adjustAngle(-10)">Decrease by 10°</button>
-      <input
-        type="number"
-        id="angle-input"
-        placeholder="Enter angle (0-180)"
-        min="0"
-        max="180"
-        onkeydown="handleEnterKey(event)"
-      />
-      <button onclick="adjustAngle(10)">Increase by 10°</button>
-    </div>
-
     <script>
+      // for hls streaming
       if (Hls.isSupported()) {
         var video = document.getElementById("video");
         var hls = new Hls();
