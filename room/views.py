@@ -260,6 +260,7 @@ class ServoView(APIView):
             200: {
                 "type": "object",
                 "properties": {
+                    "success": {"type": "boolean", "example": True},
                     "status": {"type": "integer", "example": 90},
                     "datetime": {"type": "string", "format": "date-time"}
                 }
@@ -267,6 +268,7 @@ class ServoView(APIView):
             404: {
                 "type": "object",
                 "properties": {
+                    "success": {"type": "boolean", "example": False},
                     "error": {"type": "string", "example": "No records found."}
                 }
             }
@@ -276,12 +278,16 @@ class ServoView(APIView):
         latest_record = Servo.objects.order_by('-datetime').first()
         if latest_record:
             data = {
+                "success": True,
                 'status': latest_record.angle,
                 'datetime': latest_record.datetime
             }
             return JsonResponse(data)
         else:
-            return JsonResponse({'error': 'No records found.'}, status=404)
+            return JsonResponse({
+                "success": False,
+                'error': 'No records found.'
+            }, status=404)
 
     @extend_schema(
         summary="Create a new servo angle status",
@@ -304,6 +310,7 @@ class ServoView(APIView):
             200: {
                 "type": "object",
                 "properties": {
+                    "success": {"type": "boolean", "example": True},
                     "status": {"type": "integer", "minimum": 0, "maximum": 180, "example": 90},
                     "datetime": {"type": "string", "format": "date-time"}
                 }
@@ -311,6 +318,7 @@ class ServoView(APIView):
             400: {
                 "type": "object",
                 "properties": {
+                    "success": {"type": "boolean", "example": False},
                     "error": {"type": "string", "oneOf": [
                         {"example": "Angle parameter is required."},
                         {"example": "Invalid angle value. Must be an integer."},
@@ -329,12 +337,13 @@ class ServoView(APIView):
                 if 0 <= angle_value <= 180:
                     new_entry = Servo.objects.create(datetime=timezone.now(), angle=angle_value)
                     data = {
+                        "success": True,
                         'status': new_entry.angle,
                         'datetime': new_entry.datetime
                     }
                     return JsonResponse(data)
                 else:
-                    return JsonResponse({"error": "Angle must be between 0 and 180."}, status=400)
+                    return JsonResponse({"success": False, "error": "Angle must be between 0 and 180."}, status=400)
             except ValueError:
-                return JsonResponse({"error": "Invalid angle value. Must be an integer."}, status=400)
-        return JsonResponse({"error": "Angle parameter is required."}, status=400)
+                return JsonResponse({"success": False, "error": "Invalid angle value. Must be an integer."}, status=400)
+        return JsonResponse({"success": False, "error": "Angle parameter is required."}, status=400)
