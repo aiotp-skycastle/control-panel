@@ -16,6 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 HLS_DIR = os.path.join(BASE_DIR, 'hls')
+HLS_DESK_DIR = os.path.join(BASE_DIR, 'hls-desk')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
