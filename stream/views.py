@@ -12,6 +12,7 @@ class StreamView(View):
         else:
             return HttpResponseNotFound("File not found.")
 
+class StreamUploadView(View):
     def post(self, request):
         if 'file' not in request.FILES:
             return JsonResponse({'error': 'No file provided.'}, status=400)

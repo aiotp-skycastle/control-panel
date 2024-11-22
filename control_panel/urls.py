@@ -28,6 +28,7 @@ urlpatterns = [
     path('studytime/', include('studytime.urls')),
     path('', include('home.urls')),
     path('stream/<str:filename>', views.StreamView.as_view(), name='stream'),
+    path('stream/', views.StreamUploadView.as_view(), name='stream-upload'),
 
     path('api/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
