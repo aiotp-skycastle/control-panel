@@ -27,7 +27,7 @@ urlpatterns = [
     path('room/', include('room.urls')),
     path('studytime/', include('studytime.urls')),
     path('', include('home.urls')),
-    path('stream/<str:filename>', views.stream, name='stream'),
+    path('stream/<str:filename>', views.StreamView.as_view(), name='stream'),
 
     path('api/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
