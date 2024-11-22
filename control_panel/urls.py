@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from stream import views
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
@@ -27,8 +26,7 @@ urlpatterns = [
     path('room/', include('room.urls')),
     path('studytime/', include('studytime.urls')),
     path('', include('home.urls')),
-    path('stream/<str:filename>', views.StreamView.as_view(), name='stream'),
-    path('stream/', views.StreamUploadView.as_view(), name='stream-upload'),
+    path('stream/', include('stream.urls')),
 
     path('api/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
