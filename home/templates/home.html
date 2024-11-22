@@ -171,7 +171,7 @@
       if (Hls.isSupported()) {
         var video = document.getElementById("video-desk");
         var hls = new Hls();
-        hls.loadSource("https://skycastle.cho0h5.org/stream-desk/index.m3u8");
+        hls.loadSource("https://skycastle.cho0h5.org/stream_desk/index.m3u8");
         hls.attachMedia(video);
         video.muted = true;
         hls.on(Hls.Events.MANIFEST_PARSED, function () {
