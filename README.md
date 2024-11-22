@@ -29,6 +29,10 @@ python manage.py runserver 0.0.0.0:8001
   <img width="400" alt="Screenshot 2024-11-18 at 17 10 20" src="https://github.com/user-attachments/assets/88648e5b-4bba-4209-ac8b-4f50a222e1d1">
 - 수기로 작성했던 API 구현 계획을 Swagger로 옮겨 문서를 보고 테스트하기 용이하게 함 (https://skycastle.cho0h5.org/api/swagger/)  
   <img width="400" alt="Screenshot 2024-11-18 at 18 18 03" src="https://github.com/user-attachments/assets/00530603-5f40-4c0c-883a-d5b8b4625674">
+## 12주차
+- 켜질 때 자동으로 Django와 DB가 켜지도록 설정
+- 책상 모듈의 카메라를 위한 UI 추가
+- 방 모듈과 책상 모듈로부터 카메라 스트리밍을 받는 API 구현
 
 # 계획
 ## 12주차 
