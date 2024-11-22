@@ -10,3 +10,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     restart: always
+  skycastle:
+    build: .
+    image: skycastle
+    ports:
+        - 8001:8001
+    restart: always
