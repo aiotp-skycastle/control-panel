@@ -1,6 +1,8 @@
 from django.http import FileResponse, HttpResponseNotFound, JsonResponse
 from django.conf import settings
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 import os
 
 class StreamView(View):
@@ -12,6 +14,7 @@ class StreamView(View):
         else:
             return HttpResponseNotFound("File not found.")
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StreamUploadView(View):
     def post(self, request):
         if 'file' not in request.FILES:
