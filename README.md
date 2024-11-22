@@ -5,6 +5,7 @@ git clone git@github.com:aiotp-skycastle/control-panel.git
 cd control-panel
 
 # run postgres
+mkdir data
 docker compose up -d
 
 # init django
