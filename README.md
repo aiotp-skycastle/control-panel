@@ -1,3 +1,22 @@
+# 실행 방법
+```sh
+# clone
+git clone git@github.com:aiotp-skycastle/control-panel.git
+cd control-panel
+
+# run postgres
+docker compose up -d
+
+# init django
+python -m venv ./venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+
+# run django
+python manage.py runserver 0.0.0.0:8001
+```
+
 # 진행 상황
 ## 10주차
 - 라즈베리파이간 통신 규약 문서 정의하기  
