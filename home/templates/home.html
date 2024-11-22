@@ -49,6 +49,26 @@
           </button>
         </div>
       </section>
+
+      <section class="bg-white p-6 rounded-2xl max-w-md mx-auto mt-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+          책상 CCTV
+        </h2>
+        <video
+          id="video-desk"
+          controls
+          autoplay
+          class="w-full rounded-xl border border-gray-300 mb-4"
+        ></video>
+        <div class="flex items-center gap-4 justify-center">
+          <button
+            onclick=""
+            class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
+          >
+            경고
+          </button>
+        </div>
+      </section>
     </main>
 
     <!-- for controlling camera -->
@@ -122,12 +142,30 @@
 
       window.onload = fetchCurrentAngle;
     </script>
+
     <!-- for hls streaming -->
     <script>
       if (Hls.isSupported()) {
         var video = document.getElementById("video");
         var hls = new Hls();
         hls.loadSource("https://skycastle.cho0h5.org/stream/index.m3u8");
+        hls.attachMedia(video);
+        video.muted = true;
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+        hls.on(Hls.Events.ERROR, function (event, data) {
+          console.log("Error occurred: ", data);
+        });
+      }
+    </script>
+
+    <!-- for desk hls streaming -->
+    <script>
+      if (Hls.isSupported()) {
+        var video = document.getElementById("video-desk");
+        var hls = new Hls();
+        hls.loadSource("https://skycastle.cho0h5.org/stream-desk/index.m3u8");
         hls.attachMedia(video);
         video.muted = true;
         hls.on(Hls.Events.MANIFEST_PARSED, function () {
