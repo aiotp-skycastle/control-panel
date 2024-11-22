@@ -60,8 +60,8 @@
         fetch(`/room/servo`, { method: "GET" })
           .then((response) => response.json())
           .then((data) => {
-            if (data.angle) {
-              currentAngle = data.angle;
+            if (data.status) {
+              currentAngle = data.status;
               updateDisplayedAngle();
             } else {
               sendAngleToServer(90);
