@@ -40,3 +40,28 @@ class BuzzerView(APIView):
                 "success": False,
                 "error": "No status found"
             }, status=404)
+
+    @extend_schema(
+        summary="Create a new desk alert",
+        request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+            },
+            'required': ['status']
+        }
+        },
+        responses={
+            200: {
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean"},
+                },
+            },
+        },
+    )
+    def post(self, request, *args, **kwargs):
+        buzzer = Buzzer(datetime=timezone.now())
+        buzzer.save()
+
+        return Response({"success": True})
