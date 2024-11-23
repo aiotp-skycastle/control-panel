@@ -34,7 +34,8 @@ python manage.py runserver 0.0.0.0:8001
 - 책상 모듈의 카메라를 위한 UI 추가
 - 방 모듈과 책상 모듈로부터 카메라 스트리밍을 받는 API 구현
 - 백엔드 구현 2 (부저상태, 공부시간 산출)
-- 프론트 구현 2 (경고 api 구현, 공부시간 출력)
+- 프론트 구현 2 (경고 api 구현, 공부시간 출력)  
+  <img width="800" alt="Screenshot 2024-11-23 at 17 26 54" src="https://github.com/user-attachments/assets/7c1e863f-1eb6-458e-b2e7-9e81648609d3">
 # 계획
 ## 13주차
 - 조도, 온도, 기압을 시계열 데이터베이스에 저장하도록 변경하기
