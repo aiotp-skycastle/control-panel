@@ -188,9 +188,16 @@
       function fetchDeskAlert() {
         fetch(`/buzzer/status`, { method: "POST" })
           .then((response) => response.json())
-          .then((data) => {})
+          .then((data) => {
+            if (data.success) {
+              alert("경고를 성공적으로 보냈습니다.");
+            } else {
+              alert("경고를 보내는 데 실패했습니다.");
+            }
+          })
           .catch((error) => {
             console.error("Error:", error);
+            alert("경고를 보내는 데 실패했습니다.");
           });
       }
     </script>
