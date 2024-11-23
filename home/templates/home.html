@@ -68,7 +68,7 @@
         ></video>
         <div class="flex items-center gap-4 justify-center">
           <button
-            onclick=""
+            onclick="fetchDeskAlert()"
             class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
           >
             경고
@@ -180,6 +180,18 @@
         hls.on(Hls.Events.ERROR, function (event, data) {
           console.log("Error occurred: ", data);
         });
+      }
+    </script>
+
+    <!-- for desk alert -->
+    <script>
+      function fetchDeskAlert() {
+        fetch(`/buzzer/status`, { method: "POST" })
+          .then((response) => response.json())
+          .then((data) => {})
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     </script>
   </body>
