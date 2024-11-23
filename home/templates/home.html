@@ -75,6 +75,20 @@
           </button>
         </div>
       </section>
+
+      <section
+        class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+      >
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+          오늘의 공부 시간
+        </h2>
+        <div
+          id="study-time-display"
+          class="text-center text-xl font-medium text-gray-700"
+        >
+          로딩 중...
+        </div>
+      </section>
     </main>
 
     <!-- for controlling camera -->
@@ -200,6 +214,38 @@
             alert("경고를 보내는 데 실패했습니다.");
           });
       }
+    </script>
+
+    <!-- for study time update -->
+    <script>
+      function fetchStudyTime() {
+        fetch(`/chair/studytime`, { method: "GET" })
+          .then((response) => response.json())
+          .then((data) => {
+            const totalSeconds = Math.floor(data.today_study_time_seconds);
+
+            // 시간 포맷 변환 (hh:mm:ss)
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(
+              2,
+              "0"
+            );
+            const minutes = String(
+              Math.floor((totalSeconds % 3600) / 60)
+            ).padStart(2, "0");
+            const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+            document.getElementById(
+              "study-time-display"
+            ).textContent = `${hours}:${minutes}:${seconds}`;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("study-time-display").textContent =
+              "공부 시간 정보를 가져오는 데 실패했습니다.";
+          });
+      }
+
+      setInterval(fetchStudyTime, 1000);
     </script>
   </body>
 </html>
