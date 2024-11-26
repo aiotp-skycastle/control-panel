@@ -99,7 +99,6 @@ class StudyTimeView(APIView):
             },
         },
     )
-
     def get(self, request, *args, **kwargs):
         # 현재 날짜의 시작과 끝 시간 계산
         today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -110,17 +109,26 @@ class StudyTimeView(APIView):
 
         total_time = 0
         on_time = None
+        last_status = None  # 이전 상태를 기록
 
         # Chair 기록 순회하며 앉아있던 시간 계산
         for record in chair_records:
+            # 연속된 상태인 경우 무시
+            if record.status == last_status:
+                continue
+
             if record.status == 'on':
                 on_time = record.datetime
             elif record.status == 'off' and on_time:
                 total_time += (record.datetime - on_time).total_seconds()
                 on_time = None
 
+            # 현재 상태를 이전 상태로 업데이트
+            last_status = record.status
+
         # 현재 'on' 상태로 앉아 있는 경우 현재 시간까지의 시간 계산
         if on_time:
             total_time += (timezone.now() - on_time).total_seconds()
 
         return Response({'today_study_time_seconds': total_time})
+
