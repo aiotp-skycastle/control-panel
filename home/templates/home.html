@@ -59,7 +59,8 @@
       <!-- Desk Sections Wrapper -->
       <div class="w-full flex flex-wrap gap-8 justify-center items-stretch">
         <section
-          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+          id="section-1"
+          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
         >
           <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
             1번 자리
@@ -92,7 +93,7 @@
         </section>
 
         <section
-          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
         >
           <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
             2번 자리
@@ -124,7 +125,7 @@
         </section>
 
         <section
-          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
         >
           <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
             3번 자리
@@ -156,7 +157,7 @@
         </section>
 
         <section
-          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
         >
           <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
             4번 자리
@@ -344,6 +345,30 @@
       }
 
       setInterval(fetchStudyTime, 1000);
+    </script>
+
+    <!-- for chair status -->
+    <script>
+      function updateChairStatus() {
+        fetch("/chair/status")
+          .then((response) => response.json())
+          .then((data) => {
+            const section = document.getElementById("section-1");
+            if (data.status === "off") {
+              section.classList.remove("bg-white");
+              section.classList.add("bg-gray-400");
+            } else if (data.status === "on") {
+              section.classList.remove("bg-gray-400");
+              section.classList.add("bg-white");
+            }
+            console.log(data);
+          })
+          .catch((error) =>
+            console.error("Error fetching chair status:", error)
+          );
+      }
+
+      setInterval(updateChairStatus, 1000);
     </script>
   </body>
 </html>
