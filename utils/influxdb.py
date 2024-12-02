@@ -39,19 +39,25 @@ class InfluxDBHandler:
         self.client.close()
 
 def log_temperature(temperature):
-    influx_handler = InfluxDBHandler()
-    influx_handler.write_data(
-        measurement="temperature",
-        field_name="value",
-        field_value=temperature
-    )
-    influx_handler.close()
+    try:
+        influx_handler = InfluxDBHandler()
+        influx_handler.write_data(
+            measurement="temperature",
+            field_name="value",
+            field_value=temperature
+        )
+        influx_handler.close()
+    except Exception as e:
+        print(f"influxdb error: {e}")
 
 def log_illuminance(illuminance):
-    influx_handler = InfluxDBHandler()
-    influx_handler.write_data(
-        measurement="illuminance",
-        field_name="value",
-        field_value=illuminance
-    )
-    influx_handler.close()
+    try:
+        influx_handler = InfluxDBHandler()
+        influx_handler.write_data(
+            measurement="illuminance",
+            field_name="value",
+            field_value=illuminance
+        )
+        influx_handler.close()
+    except Exception as e:
+        print(f"influxdb error: {e}")
