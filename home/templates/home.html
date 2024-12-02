@@ -54,38 +54,137 @@
         </div>
       </section>
 
-      <section
-        class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
-      >
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-          1번 자리
-        </h2>
-        <video
-          id="video-desk"
-          controls
-          autoplay
-          class="w-full rounded-xl border border-gray-300 mb-4"
-        ></video>
+      <!-- Desk Sections Wrapper -->
+      <div class="w-full flex flex-wrap gap-8 justify-center items-stretch">
+        <section
+          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+        >
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            1번 자리
+          </h2>
+          <video
+            id="video-desk"
+            controls
+            autoplay
+            class="w-full rounded-xl border border-gray-300 mb-4"
+          ></video>
 
-        <div class="flex items-center gap-4 justify-center">
-          <span class="text-xl font-semibold text-gray-800">
-            오늘의 공부 시간:
-          </span>
-          <span
-            id="study-time-display"
-            class="text-xl font-medium text-gray-700"
-          >
-            로딩 중...
-          </span>
+          <div class="flex items-center gap-4 justify-center">
+            <span class="text-xl font-semibold text-gray-800">
+              오늘의 공부 시간:
+            </span>
+            <span
+              id="study-time-display"
+              class="text-xl font-medium text-gray-700"
+            >
+              로딩 중...
+            </span>
 
-          <button
-            onclick="fetchDeskAlert()"
-            class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
-          >
-            경고
-          </button>
-        </div>
-      </section>
+            <button
+              onclick="fetchDeskAlert()"
+              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
+            >
+              경고
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+        >
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            2번 자리
+          </h2>
+          <video
+            id="video-desk-2"
+            controls
+            autoplay
+            class="w-full rounded-xl border border-gray-300 mb-4"
+          ></video>
+
+          <div class="flex items-center gap-4 justify-center">
+            <span class="text-xl font-semibold text-gray-800">
+              오늘의 공부 시간:
+            </span>
+            <span
+              id="study-time-display-2"
+              class="text-xl font-medium text-gray-700"
+            >
+              02:30:45
+            </span>
+
+            <button
+              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
+            >
+              경고
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+        >
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            3번 자리
+          </h2>
+          <video
+            id="video-desk-3"
+            controls
+            autoplay
+            class="w-full rounded-xl border border-gray-300 mb-4"
+          ></video>
+
+          <div class="flex items-center gap-4 justify-center">
+            <span class="text-xl font-semibold text-gray-800">
+              오늘의 공부 시간:
+            </span>
+            <span
+              id="study-time-display-3"
+              class="text-xl font-medium text-gray-700"
+            >
+              01:15:20
+            </span>
+
+            <button
+              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
+            >
+              경고
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+        >
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            4번 자리
+          </h2>
+          <video
+            id="video-desk-4"
+            controls
+            autoplay
+            class="w-full rounded-xl border border-gray-300 mb-4"
+          ></video>
+
+          <div class="flex items-center gap-4 justify-center">
+            <span class="text-xl font-semibold text-gray-800">
+              오늘의 공부 시간:
+            </span>
+            <span
+              id="study-time-display-4"
+              class="text-xl font-medium text-gray-700"
+            >
+              05:16:23
+            </span>
+
+            <button
+              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
+            >
+              경고
+            </button>
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- for controlling camera -->
