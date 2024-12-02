@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema
+from utils.influxdb import log_temperature, log_illuminance
 
 from .models import Illuminance, Temperature, Pressure, Servo
 
@@ -82,6 +83,7 @@ class IlluminanceView(APIView):
             try:
                 illuminance = Illuminance(datetime=timezone.now(), status=status_value)
                 illuminance.save()
+                log_illuminance(status_value)
                 return JsonResponse({"success": True}, status=201)
             except ValueError:
                 return JsonResponse({"success": False, "error": "Invalid sensor value"}, status=400)
@@ -163,6 +165,7 @@ class TemperatureView(APIView):
             try:
                 temperature = Temperature(datetime=timezone.now(), status=status_value)
                 temperature.save()
+                log_temperature(status_value)
                 return JsonResponse({"success": True}, status=201)
             except ValueError:
                 return JsonResponse({"success": False, "error": "Invalid sensor value"}, status=400)

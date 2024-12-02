@@ -37,3 +37,21 @@ class InfluxDBHandler:
     def close(self):
         """클라이언트 종료"""
         self.client.close()
+
+def log_temperature(temperature):
+    influx_handler = InfluxDBHandler()
+    influx_handler.write_data(
+        measurement="temperature",
+        field_name="value",
+        field_value=temperature
+    )
+    influx_handler.close()
+
+def log_illuminance(illuminance):
+    influx_handler = InfluxDBHandler()
+    influx_handler.write_data(
+        measurement="illuminance",
+        field_name="value",
+        field_value=illuminance
+    )
+    influx_handler.close()
