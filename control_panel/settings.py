@@ -99,7 +99,7 @@ DATABASES = {
 
 INFLUXDB = {
     'url': 'http://influx:8086',
-    'token': 'influx-user:influx-password',
+    'token': 'influx-yuyu-token',
     'org': 'influx-org',
     'bucket': 'influx-bucket',
 }
