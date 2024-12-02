@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: skycastle
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     restart: always
 
   skycastle:
@@ -24,8 +24,8 @@ services:
     ports:
       - "8086:8086"
     volumes:
-      - ./data-influxdb:/var/lib/influxdb2
-      - ./config-influxdb:/etc/influxdb2
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
       DOCKER_INFLUXDB_INIT_USERNAME: influx-user
@@ -34,3 +34,17 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: influx-bucket
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: influx-yuyu-token
     restart: always
+
+  grafana:
+    ports:
+        - 3001:3000
+    restart: always
+    volumes:
+        - grafana-volume:/var/lib/grafana
+    image: grafana/grafana
+
+volumes:
+  grafana-volume:
+  influxdb-data:
+  influxdb-config:
+  postgres-data:
