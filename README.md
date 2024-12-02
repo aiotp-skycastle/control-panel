@@ -38,8 +38,10 @@ python manage.py runserver 0.0.0.0:8001
   <img width="800" alt="Screenshot 2024-11-23 at 17 26 54" src="https://github.com/user-attachments/assets/7c1e863f-1eb6-458e-b2e7-9e81648609d3">
 ## 14주차
 - 조도, 온도, 기압을 시계열 데이터베이스에 저장하도록 변경하기
-- 프론트 구현 3 (조도, 온도, 기압 그래프)
-- 관리자 화면 UI 개선
+- 프론트 구현 3 (조도, 온도, 기압 그래프)  
+  <img width="500" alt="Screenshot 2024-12-02 at 22 12 34" src="https://github.com/user-attachments/assets/4f061a8b-b6c7-47ef-a053-792c4cb8f6cb">
+- 관리자 화면 UI 개선  
+  <img width="500" alt="Screenshot 2024-12-03 at 00 10 28" src="https://github.com/user-attachments/assets/499ac24e-1400-4d85-bbb4-370552f42e72">
 # 계획
 ## 15주차 
 - 프론트 구현 4 (호출 시 화면에 표시)
