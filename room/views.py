@@ -1,10 +1,7 @@
 import json
 
-from django.views import View
 from django.http import JsonResponse
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema
 
