@@ -165,3 +165,5 @@ data/
 .vscode/
 hls/
 hls-desk/
+data-influxdb/
+config-influxdb/
