@@ -32,3 +32,5 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD: influx-password
       DOCKER_INFLUXDB_INIT_ORG: influx-org
       DOCKER_INFLUXDB_INIT_BUCKET: influx-bucket
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: influx-yuyu-token
+    restart: always
