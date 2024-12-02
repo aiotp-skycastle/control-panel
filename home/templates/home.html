@@ -54,6 +54,20 @@
         </div>
       </section>
 
+      <section
+        class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
+      >
+        <div class="grid grid-cols-6 grid-rows-5 gap-2">
+          <script>
+            for (let i = 1; i <= 30; i++) {
+              document.write(
+                `<div class="w-24 h-24 bg-gray-400 rounded-2xl flex items-center justify-center text-white font-bold" id="desk-${i}">${i}</div>`
+              );
+            }
+          </script>
+        </div>
+      </section>
+
       <div class="w-full border-t-2 border-gray-300"></div>
 
       <!-- Desk Sections Wrapper -->
@@ -354,12 +368,21 @@
           .then((response) => response.json())
           .then((data) => {
             const section = document.getElementById("section-1");
+            const desk = document.getElementById("desk-1");
             if (data.status === "off") {
               section.classList.remove("bg-white");
               section.classList.add("bg-gray-400");
+              desk.classList.remove("bg-white");
+              desk.classList.add("bg-gray-400");
+              desk.classList.remove("text-gray");
+              desk.classList.add("text-white");
             } else if (data.status === "on") {
               section.classList.remove("bg-gray-400");
               section.classList.add("bg-white");
+              desk.classList.remove("bg-gray-400");
+              desk.classList.add("bg-white");
+              desk.classList.remove("text-white");
+              desk.classList.add("text-gray");
             }
           })
           .catch((error) =>
