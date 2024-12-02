@@ -97,6 +97,12 @@ DATABASES = {
     }
 }
 
+INFLUXDB = {
+    'url': 'http://influx:8086',
+    'token': 'influx-user:influx-password',
+    'org': 'influx-org',
+    'bucket': 'influx-bucket',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
