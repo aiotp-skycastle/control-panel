@@ -11,4 +11,4 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Run the Django development server
-CMD ["gunicorn", "--bind", "0.0.0.0:8001", "control_panel.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8001", "control_panel.wsgi", "--workers", "4", "--threads", "4", "--log-level=debug"]
