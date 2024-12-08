@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desk 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen m-0">
+    <header class="w-full py-6 bg-gray-800 shadow-md m-0">
+      <h1 class="text-center text-3xl font-extrabold text-gray-200">
+        1번 자리 상세 정보
+      </h1>
+    </header>
+
+    <main
+      class="w-full max-w-4xl bg-gray-800 p-8 rounded-lg shadow-lg mt-8 mx-auto"
+    >
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-100">1번 자리</h2>
+        <p class="text-gray-400">1번 자리에 대한 상세 정보 페이지입니다.</p>
+      </div>
+
+      <!-- 비디오 섹션 -->
+      <div class="mb-8">
+        <video
+          id="video-desk"
+          controls
+          autoplay
+          class="w-full h-64 rounded-xl border border-gray-600 bg-black"
+        ></video>
+      </div>
+
+      <!-- 공부 시간 및 경고 버튼 -->
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-4">
+          <span class="text-lg font-medium text-gray-200"
+            >오늘의 공부 시간:</span
+          >
+          <span id="study-time-display" class="text-lg font-bold text-blue-400">
+            로딩 중...
+          </span>
+        </div>
+        <button
+          onclick="fetchDeskAlert()"
+          class="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all focus:ring-2 focus:ring-red-300 focus:outline-none"
+        >
+          경고 보내기
+        </button>
+      </div>
+    </main>
+
+    <footer class="mt-8 text-center">
+      <a
+        href="/"
+        class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all focus:ring-2 focus:ring-blue-300 focus:outline-none"
+      >
+        자리 목록으로 돌아가기
+      </a>
+    </footer>
+    <!-- for desk hls streaming -->
+    <script>
+      if (Hls.isSupported()) {
+        var video = document.getElementById("video-desk");
+        var hls = new Hls();
+        hls.loadSource("https://skycastle.cho0h5.org/stream_desk/index.m3u8");
+        hls.attachMedia(video);
+        video.muted = true;
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+        hls.on(Hls.Events.ERROR, function (event, data) {
+          console.log("Error occurred: ", data);
+        });
+      }
+    </script>
+
+    <!-- for desk alert -->
+    <script>
+      function fetchDeskAlert() {
+        fetch(`/buzzer/status`, { method: "POST" })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("경고를 성공적으로 보냈습니다.");
+            } else {
+              alert("경고를 보내는 데 실패했습니다.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("경고를 보내는 데 실패했습니다.");
+          });
+      }
+    </script>
+
+    <!-- for study time update -->
+    <script>
+      function fetchStudyTime() {
+        fetch(`/chair/studytime`, { method: "GET" })
+          .then((response) => response.json())
+          .then((data) => {
+            const totalSeconds = Math.floor(data.today_study_time_seconds);
+
+            // 시간 포맷 변환 (hh:mm:ss)
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(
+              2,
+              "0"
+            );
+            const minutes = String(
+              Math.floor((totalSeconds % 3600) / 60)
+            ).padStart(2, "0");
+            const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+            document.getElementById(
+              "study-time-display"
+            ).textContent = `${hours}:${minutes}:${seconds}`;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("study-time-display").textContent =
+              "공부 시간 정보를 가져오는 데 실패했습니다.";
+          });
+      }
+
+      setInterval(fetchStudyTime, 1000);
+    </script>
+  </body>
+</html>

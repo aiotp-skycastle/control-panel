@@ -25,6 +25,7 @@
     <main
       class="container mx-auto p-4 flex flex-wrap gap-8 justify-center items-stretch"
     >
+      <!-- 방 -->
       <section
         class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
       >
@@ -62,6 +63,7 @@
         </div>
       </section>
 
+      <!-- 자리 -->
       <section
         class="bg-white p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
       >
@@ -69,147 +71,22 @@
           <script>
             for (let i = 1; i <= 36; i++) {
               document.write(
-                `<div class="w-16 h-16 bg-gray-400 text-white rounded-2xl flex items-center justify-center font-bold" id="desk-${i}">${i}</div>`
+                `<div class="w-16 h-16 bg-gray-400 text-white rounded-2xl flex items-center justify-center font-bold cursor-pointer hover:bg-blue-500" id="desk-${i}" onclick="navigateToDesk(${i})">${i}</div>`
               );
+            }
+
+            function navigateToDesk(deskNumber) {
+              if (deskNumber === 1) {
+                // desk-1만 동작
+                window.location.href = `/desk${deskNumber}`;
+              } else {
+                // 아무 동작도 하지 않음
+                console.log(`Desk ${deskNumber} is not clickable.`);
+              }
             }
           </script>
         </div>
       </section>
-
-      <div class="w-full border-t-2 border-gray-300"></div>
-
-      <!-- Desk Sections Wrapper -->
-      <div class="w-full flex flex-wrap gap-8 justify-center items-stretch">
-        <section
-          id="section-1"
-          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
-        >
-          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            1번 자리
-          </h2>
-          <video
-            id="video-desk"
-            controls
-            autoplay
-            class="w-full rounded-xl border border-gray-300 mb-4"
-          ></video>
-
-          <div class="flex items-center gap-4 justify-center">
-            <span class="text-xl font-semibold text-gray-800">
-              오늘의 공부 시간:
-            </span>
-            <span
-              id="study-time-display"
-              class="text-xl font-medium text-gray-700"
-            >
-              로딩 중...
-            </span>
-
-            <button
-              onclick="fetchDeskAlert()"
-              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
-            >
-              경고
-            </button>
-          </div>
-        </section>
-
-        <section
-          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
-        >
-          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            2번 자리
-          </h2>
-          <video
-            id="video-desk-2"
-            controls
-            autoplay
-            class="w-full rounded-xl border border-gray-300 mb-4"
-          ></video>
-
-          <div class="flex items-center gap-4 justify-center">
-            <span class="text-xl font-semibold text-gray-800">
-              오늘의 공부 시간:
-            </span>
-            <span
-              id="study-time-display-2"
-              class="text-xl font-medium text-gray-700"
-            >
-              02:30:45
-            </span>
-
-            <button
-              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
-            >
-              경고
-            </button>
-          </div>
-        </section>
-
-        <section
-          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
-        >
-          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            3번 자리
-          </h2>
-          <video
-            id="video-desk-3"
-            controls
-            autoplay
-            class="w-full rounded-xl border border-gray-300 mb-4"
-          ></video>
-
-          <div class="flex items-center gap-4 justify-center">
-            <span class="text-xl font-semibold text-gray-800">
-              오늘의 공부 시간:
-            </span>
-            <span
-              id="study-time-display-3"
-              class="text-xl font-medium text-gray-700"
-            >
-              01:15:20
-            </span>
-
-            <button
-              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
-            >
-              경고
-            </button>
-          </div>
-        </section>
-
-        <section
-          class="bg-gray-400 p-6 rounded-2xl max-w-md w-full md:flex-grow lg:flex-grow mx-auto mt-8"
-        >
-          <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            4번 자리
-          </h2>
-          <video
-            id="video-desk-4"
-            controls
-            autoplay
-            class="w-full rounded-xl border border-gray-300 mb-4"
-          ></video>
-
-          <div class="flex items-center gap-4 justify-center">
-            <span class="text-xl font-semibold text-gray-800">
-              오늘의 공부 시간:
-            </span>
-            <span
-              id="study-time-display-4"
-              class="text-xl font-medium text-gray-700"
-            >
-              05:16:23
-            </span>
-
-            <button
-              class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center"
-            >
-              경고
-            </button>
-          </div>
-        </section>
-      </div>
     </main>
 
     <!-- for controlling camera -->
@@ -301,90 +178,17 @@
       }
     </script>
 
-    <!-- for desk hls streaming -->
-    <script>
-      if (Hls.isSupported()) {
-        var video = document.getElementById("video-desk");
-        var hls = new Hls();
-        hls.loadSource("https://skycastle.cho0h5.org/stream_desk/index.m3u8");
-        hls.attachMedia(video);
-        video.muted = true;
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-          video.play();
-        });
-        hls.on(Hls.Events.ERROR, function (event, data) {
-          console.log("Error occurred: ", data);
-        });
-      }
-    </script>
-
-    <!-- for desk alert -->
-    <script>
-      function fetchDeskAlert() {
-        fetch(`/buzzer/status`, { method: "POST" })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              alert("경고를 성공적으로 보냈습니다.");
-            } else {
-              alert("경고를 보내는 데 실패했습니다.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("경고를 보내는 데 실패했습니다.");
-          });
-      }
-    </script>
-
-    <!-- for study time update -->
-    <script>
-      function fetchStudyTime() {
-        fetch(`/chair/studytime`, { method: "GET" })
-          .then((response) => response.json())
-          .then((data) => {
-            const totalSeconds = Math.floor(data.today_study_time_seconds);
-
-            // 시간 포맷 변환 (hh:mm:ss)
-            const hours = String(Math.floor(totalSeconds / 3600)).padStart(
-              2,
-              "0"
-            );
-            const minutes = String(
-              Math.floor((totalSeconds % 3600) / 60)
-            ).padStart(2, "0");
-            const seconds = String(totalSeconds % 60).padStart(2, "0");
-
-            document.getElementById(
-              "study-time-display"
-            ).textContent = `${hours}:${minutes}:${seconds}`;
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            document.getElementById("study-time-display").textContent =
-              "공부 시간 정보를 가져오는 데 실패했습니다.";
-          });
-      }
-
-      setInterval(fetchStudyTime, 1000);
-    </script>
-
     <!-- for chair status -->
     <script>
       function updateChairStatus() {
         fetch("/chair/status")
           .then((response) => response.json())
           .then((data) => {
-            const section = document.getElementById("section-1");
             const desk = document.getElementById("desk-1");
             if (data.status === "off") {
-              section.classList.remove("bg-white");
-              section.classList.add("bg-gray-400");
               desk.classList.remove("bg-green-400");
               desk.classList.add("bg-gray-400");
             } else if (data.status === "on") {
-              section.classList.remove("bg-gray-400");
-              section.classList.add("bg-white");
               desk.classList.remove("bg-gray-400");
               desk.classList.add("bg-green-400");
             }

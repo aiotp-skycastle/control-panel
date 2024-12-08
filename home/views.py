@@ -32,3 +32,6 @@ class HomeView(TemplateView):
 def logout_view(request):
     request.session.flush()  # 세션 초기화
     return redirect("/login/")
+
+def desk1_view(request):
+    return render(request, "desk1.html")
