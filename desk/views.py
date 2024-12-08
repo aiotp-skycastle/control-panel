@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema
+from django.utils.timezone import localtime
 
 from .models import Desk
 
@@ -31,7 +32,7 @@ class CallView(APIView):
         if latest_desk:
             return JsonResponse({
                 "success": True,
-                "datetime": latest_desk.datetime.strftime('%Y-%m-%d %H:%M:%S')
+                "datetime": localtime(latest_desk.datetime).strftime('%Y-%m-%d %H:%M:%S')
             })
         else:
             return JsonResponse({"success": False, "error": "No entries found"}, status=404)

@@ -218,5 +218,51 @@
           .catch((error) => console.error("Logout Error:", error));
       }
     </script>
+
+    <script>
+      async function checkCall() {
+        try {
+          const response = await fetch("/desk/call");
+          const data = await response.json();
+
+          if (data.success) {
+            const serverTime = new Date(data.datetime).getTime();
+            const currentTime = new Date().getTime();
+
+            if (currentTime - serverTime <= 4000) {
+              // 4초 이내 조건 확인
+              const deskElement = document.getElementById("desk-1");
+
+              if (deskElement) {
+                // Find the current background color class
+                const currentBgColorClass = Array.from(
+                  deskElement.classList
+                ).find((cls) => cls.startsWith("bg-"));
+
+                // Remove current background color and add red
+                deskElement.classList.remove(currentBgColorClass);
+                deskElement.classList.add("bg-red-500");
+
+                // Show alert after 2 seconds, and handle color restoration after confirmation
+                setTimeout(() => {
+                  alert("학생1이 호출했습니다!");
+
+                  // Color restoration happens after alert
+                  deskElement.classList.remove("bg-red-500");
+                  if (currentBgColorClass) {
+                    deskElement.classList.add(currentBgColorClass);
+                  }
+                }, 2000);
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching desk call:", error);
+        }
+      }
+
+      // 3초마다 호출 상태를 확인
+      setInterval(checkCall, 3000);
+    </script>
   </body>
 </html>
