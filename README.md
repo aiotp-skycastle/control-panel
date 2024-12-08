@@ -44,4 +44,5 @@ python manage.py runserver 0.0.0.0:8001
   <img width="500" alt="Screenshot 2024-12-03 at 00 10 28" src="https://github.com/user-attachments/assets/499ac24e-1400-4d85-bbb4-370552f42e72">
 ## 15주차 
 - 로그인 구현
+- UI 변경 (메인 화면, 각 책상 화면 분리)
 - 프론트 구현 4 (호출 시 화면에 표시)
