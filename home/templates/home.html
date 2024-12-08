@@ -185,6 +185,11 @@
           .then((response) => response.json())
           .then((data) => {
             const desk = document.getElementById("desk-1");
+
+            if (desk.classList.contains("bg-red-500")) {
+              return;
+            }
+
             if (data.status === "off") {
               desk.classList.remove("bg-green-400");
               desk.classList.add("bg-gray-400");
@@ -262,7 +267,7 @@
       }
 
       // 3초마다 호출 상태를 확인
-      setInterval(checkCall, 3000);
+      setInterval(checkCall, 4000);
     </script>
   </body>
 </html>
