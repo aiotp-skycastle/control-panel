@@ -59,9 +59,9 @@
       >
         <div class="grid grid-cols-6 grid-rows-5 gap-2">
           <script>
-            for (let i = 1; i <= 30; i++) {
+            for (let i = 1; i <= 36; i++) {
               document.write(
-                `<div class="w-16 h-16 bg-gray-400 rounded-2xl flex items-center justify-center text-white font-bold" id="desk-${i}">${i}</div>`
+                `<div class="w-16 h-16 bg-gray-400 text-white rounded-2xl flex items-center justify-center font-bold" id="desk-${i}">${i}</div>`
               );
             }
           </script>
@@ -372,17 +372,13 @@
             if (data.status === "off") {
               section.classList.remove("bg-white");
               section.classList.add("bg-gray-400");
-              desk.classList.remove("bg-white");
+              desk.classList.remove("bg-green-400");
               desk.classList.add("bg-gray-400");
-              desk.classList.remove("text-gray");
-              desk.classList.add("text-white");
             } else if (data.status === "on") {
               section.classList.remove("bg-gray-400");
               section.classList.add("bg-white");
               desk.classList.remove("bg-gray-400");
-              desk.classList.add("bg-white");
-              desk.classList.remove("text-white");
-              desk.classList.add("text-gray");
+              desk.classList.add("bg-green-400");
             }
           })
           .catch((error) =>
