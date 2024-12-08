@@ -8,10 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   </head>
   <body class="bg-gray-100 text-gray-800">
-    <header class="py-4">
+    <header
+      class="py-4 flex justify-between items-center px-8 bg-gray-800 text-white"
+    >
       <h1 class="text-center text-2xl font-bold">
         스마트 독서실 관리자 페이지
       </h1>
+      <button
+        onclick="logout()"
+        class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+      >
+        로그아웃
+      </button>
     </header>
 
     <main
@@ -387,6 +395,23 @@
       }
 
       setInterval(updateChairStatus, 1000);
+    </script>
+
+    <script>
+      function logout() {
+        fetch("/logout/", {
+          method: "POST",
+          headers: { "X-CSRFToken": csrftoken },
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = "/login/";
+            } else {
+              alert("로그아웃에 실패했습니다.");
+            }
+          })
+          .catch((error) => console.error("Logout Error:", error));
+      }
     </script>
   </body>
 </html>
