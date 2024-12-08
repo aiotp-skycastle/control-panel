@@ -44,7 +44,4 @@ python manage.py runserver 0.0.0.0:8001
   <img width="500" alt="Screenshot 2024-12-03 at 00 10 28" src="https://github.com/user-attachments/assets/499ac24e-1400-4d85-bbb4-370552f42e72">
 ## 15주차 
 - 로그인 구현
-# 계획
-## 15주차 
 - 프론트 구현 4 (호출 시 화면에 표시)
-- 하드웨어 구현 (호출 당했을 때 LED와 부저도 울리도록)
