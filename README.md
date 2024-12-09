@@ -43,6 +43,11 @@ python manage.py runserver 0.0.0.0:8001
 - 관리자 화면 UI 개선  
   <img width="500" alt="Screenshot 2024-12-03 at 00 10 28" src="https://github.com/user-attachments/assets/499ac24e-1400-4d85-bbb4-370552f42e72">
 ## 15주차 
-- 로그인 구현
-- UI 변경 (메인 화면, 각 책상 화면 분리)
-- 프론트 구현 4 (호출 시 화면에 표시)
+- 로그인 구현  
+  <img width="500" alt="Screenshot 2024-12-09 at 19 17 09" src="https://github.com/user-attachments/assets/79b635f1-d402-49a1-b6e9-e6b21fd30c83">
+- UI 변경 (메인 화면, 각 책상 화면 분리)  
+  <img width="500" alt="Screenshot 2024-12-09 at 19 17 04" src="https://github.com/user-attachments/assets/b92d6a92-7ae2-484e-a7f9-6f6adb8b6d2b">
+  <img width="500" alt="Screenshot 2024-12-09 at 19 16 55" src="https://github.com/user-attachments/assets/f42a1c02-2538-4a45-8d12-d16a19335eaf">
+- 프론트 구현 4 (호출 시 화면에 표시)  
+  <img width="500" alt="Screenshot 2024-12-09 at 19 20 32" src="https://github.com/user-attachments/assets/7961eaf4-ea61-452c-bd86-fc44574a20c6">
+
